@@ -1,5 +1,5 @@
 {
-  "app": "pnpm build && node ./dist/aws/index.js",
+  "app": "pnpm fe:bundle && pnpm build && node ./dist/aws/index.js",
   "watch": {
     "include": [
       "**"

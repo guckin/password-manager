@@ -1,6 +1,6 @@
 import {Stack, StackProps} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import {Certificate, CertificateValidation, ICertificate} from 'aws-cdk-lib/aws-certificatemanager';
+import {Certificate, CertificateValidation} from 'aws-cdk-lib/aws-certificatemanager';
 import {HostedZone} from 'aws-cdk-lib/aws-route53';
 
 export type CertificateProps = StackProps & {
@@ -10,21 +10,22 @@ export type CertificateProps = StackProps & {
 };
 
 export class CertificateStack extends Stack {
-  private cert: Certificate;
+  public restApiCert: Certificate;
+  public frontendCert: Certificate;
 
   constructor(scope: Construct, id: string, props: CertificateProps) {
     super(scope, id, props);
 
-    const hostedZone = HostedZone.fromLookup(this, 'HostedZone', {
+    const hostedZone = HostedZone.fromLookup(this, 'hosted-zone', {
       domainName: props.domainName
     });
-    this.cert = new Certificate(this, 'Certificate', {
-      domainName: `${props.subdomain}.${props.stage}.${props.domainName}`,
+    this.restApiCert = new Certificate(this, 'rest-api-certificate', {
+      domainName: `api.${props.subdomain}.${props.stage}.${props.domainName}`,
       validation: CertificateValidation.fromDns(hostedZone)
     });
-  }
-
-  public getCert(scope: Construct, id: string): ICertificate {
-    return Certificate.fromCertificateArn(scope, id, this.cert.certificateArn);
+    this.frontendCert = new Certificate(this, 'frontend-certificate', {
+      domainName: `app.${props.subdomain}.${props.stage}.${props.domainName}`,
+      validation: CertificateValidation.fromDns(hostedZone)
+    });
   }
 }

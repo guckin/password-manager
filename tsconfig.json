@@ -3,6 +3,7 @@
     "module": "NodeNext",
     "target": "ESNext",
     "declaration": true,
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "moduleResolution": "NodeNext",
     "strict": true,
@@ -19,5 +20,6 @@
   "include": [
     "src/**/*.ts",
     "bin/**/*.ts",
+    "bin/**/*.tsx"
   ],
 }
