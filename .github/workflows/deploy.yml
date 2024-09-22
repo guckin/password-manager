@@ -22,21 +22,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9.8.0
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install Dependencies
-        run: |
-          pnpm ci
-
+        run: pnpm i --frozen-lockfile
       - name: Lint
         run: |
           pnpm lint
-
       - name: Test
         run: |
           pnpm test
-
       - name: Deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
