@@ -27,15 +27,15 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm ci
+          pnpm ci
 
       - name: Lint
         run: |
-          npm run lint
+          pnpm lint
 
       - name: Test
         run: |
-          npm test
+          pnpm test
 
       - name: Deploy
         uses: youyo/aws-cdk-github-actions@v2

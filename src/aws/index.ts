@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import {App} from 'aws-cdk-lib';
+import { CertificateStack } from './certificate.stack.js';
 
-import {RestApiStack} from './rest-api/rest-api.stack.js';
-import {CertificateStack} from './certificate/certificate.stack.js';
-import {domainName, stage, subdomain} from './config.js';
+import {appName, domainName, stage, subdomain} from './config.js';
+import { RestApiStack } from './rest-api.stack.js';
 
 const app = new App();
 
-const certStack = new CertificateStack(app, `Certificate-${stage}`, {
+const certStack = new CertificateStack(app, `${appName}-certificate-${stage}`, {
     stage,
     env: {
         account: process.env.CDK_DEFAULT_ACCOUNT,
@@ -18,7 +18,7 @@ const certStack = new CertificateStack(app, `Certificate-${stage}`, {
     subdomain,
 });
 
-export const stack = new RestApiStack(app, `RestAPIStack-${stage}`, {
+new RestApiStack(app, `${appName}-rest-api-${stage}`, {
     env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
     crossRegionReferences: true,
     stage,

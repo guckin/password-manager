@@ -13,7 +13,7 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: Diff
                 uses: youyo/aws-cdk-github-actions@v2

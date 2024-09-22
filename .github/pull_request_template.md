@@ -6,7 +6,7 @@
 
 ## Running unit tests
 
-npm run test
+pnpm test
 
 ## PR Comment Commands
 The following commands are available as comments for this PR:

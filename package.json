@@ -1,5 +1,5 @@
 {
-  "name": "cdk-template",
+  "name": "password-manager",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
@@ -8,11 +8,14 @@
     "build": "tsc",
     "transpile": "tsc",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
-    "clean:install": "rm -rf node_modules && rm -rf package-lock.json && npm i",
-    "clean:build": "rm -rf dist && rm -rf build && npm run build",
-    "clean:install:build": "npm run clean:install && npm run clean:build",
+    "lint:fix": "pnpm lint -- --fix",
+    "clean:install": "rm -rf node_modules && rm -rf package-lock.json && pnpm i",
+    "clean:build": "rm -rf dist && rm -rf build && pnpm build",
     "compile": "tsc"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": "use pnpm"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.109",

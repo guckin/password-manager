@@ -22,11 +22,11 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: Test
                 run: |
-                    npm run lint
+                    pnpm lint
 
     test:
         name: Unit Test
@@ -37,11 +37,11 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: Test
                 run: |
-                    npm test
+                    pnpm test
 
             -   name:
                 uses: artiomtr/jest-coverage-report-action@v2
@@ -57,7 +57,7 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: Synthesize
                 uses: youyo/aws-cdk-github-actions@v2
@@ -89,7 +89,7 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: Deploy
                 uses: youyo/aws-cdk-github-actions@v2
@@ -119,7 +119,7 @@ jobs:
                         `${{ env.STAGE }}`
                         ### E2e Tests
                           ```
-                            STAGE=${{ env.STAGE }} npm run test:e2e
+                            STAGE=${{ env.STAGE }} pnpm test:e2e
                           ```
     e2e:
         name: E2E Test
@@ -137,11 +137,11 @@ jobs:
 
             -   name: Install Dependencies
                 run: |
-                    npm ci
+                    pnpm ci
 
             -   name: E2E Test
                 run: |
-                    npm run test:e2e
+                    pnpm test:e2e
                 env:
                     STAGE: ${{ env.STAGE }}
 

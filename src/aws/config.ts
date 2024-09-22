@@ -1,6 +1,8 @@
 import {SourceMapMode, BundlingOptions} from 'aws-cdk-lib/aws-lambda-nodejs';
 import {Runtime} from 'aws-cdk-lib/aws-lambda';
 
+export const appName = 'password-manager';
+
 export const bundlingOptions: BundlingOptions = {
   minify: true,
   sourceMap: true,
@@ -13,7 +15,8 @@ export const bundlingOptions: BundlingOptions = {
 
 export const stage = process.env.STAGE || 'dev';
 export const domainName = 'slippys.cool';
-export const subdomain = 'service-template';
+export const subdomain = appName;
+
 
 export const env = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
