@@ -11,3 +11,4 @@ cdk.out
 /cdk.context.json
 
 coverage
+/src/frontend/public/bundle.js
