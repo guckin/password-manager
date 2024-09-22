@@ -4,7 +4,6 @@ import {Certificate, CertificateValidation} from 'aws-cdk-lib/aws-certificateman
 import {HostedZone} from 'aws-cdk-lib/aws-route53';
 
 export type CertificateProps = StackProps & {
-  stage: string,
   domainName: string,
   subdomain: string,
 };
@@ -20,11 +19,11 @@ export class CertificateStack extends Stack {
       domainName: props.domainName
     });
     this.restApiCert = new Certificate(this, 'rest-api-certificate', {
-      domainName: `api.${props.subdomain}.${props.stage}.${props.domainName}`,
+      domainName: `api.${props.subdomain}.${props.domainName}`,
       validation: CertificateValidation.fromDns(hostedZone)
     });
     this.frontendCert = new Certificate(this, 'frontend-certificate', {
-      domainName: `app.${props.subdomain}.${props.stage}.${props.domainName}`,
+      domainName: `app.${props.subdomain}.${props.domainName}`,
       validation: CertificateValidation.fromDns(hostedZone)
     });
   }

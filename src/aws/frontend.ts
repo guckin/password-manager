@@ -15,7 +15,6 @@ export type FrontendStackProps = {
   domainName: string,
   cert: ICertificate,
   subdomain: string,
-  stage: string
 } & StackProps;
 
 export class FrontendStack extends Stack {
@@ -59,7 +58,7 @@ export class FrontendStack extends Stack {
 
     new ARecord(this, 'a-record', {
       zone: hostedZone,
-      recordName: `app.${props.subdomain}.${props.stage}.${props.domainName}`,
+      recordName: `app.${props.subdomain}.${props.domainName}`,
       target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
       ttl: Duration.minutes(1)
     });

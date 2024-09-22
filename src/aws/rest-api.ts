@@ -10,7 +10,6 @@ import {ICertificate} from 'aws-cdk-lib/aws-certificatemanager';
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export type RestApiStackProps = StackProps & {
-  stage: string,
   cert: ICertificate,
   subdomain: string,
   domainName: string,
@@ -40,13 +39,13 @@ export class RestApiStack extends Stack {
     api.root.addProxy({defaultIntegration: lambdaIntegration});
 
     api.addDomainName('domain-name', {
-      domainName: `api.${props.subdomain}.${props.stage}.${props.domainName}`,
+      domainName: `api.${props.subdomain}.${props.domainName}`,
       certificate: props.cert,
       endpointType: EndpointType.EDGE
     });
 
     new ARecord(this, 'a-record', {
-      recordName: `api.${props.subdomain}.${props.stage}.${props.domainName}`,
+      recordName: `api.${props.subdomain}.${props.domainName}`,
       target: RecordTarget.fromAlias(new ApiGateway(api)),
       zone: HostedZone.fromLookup(this, 'hosted-zone', {
         domainName: props.domainName

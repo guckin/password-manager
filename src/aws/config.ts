@@ -13,7 +13,6 @@ export const bundlingOptions: BundlingOptions = {
   externalModules: ['@aws-sdk/*'],
 };
 
-export const stage = process.env.STAGE || 'dev';
 export const domainName = 'slippys.cool';
 export const subdomain = appName;
 

@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 import {App} from 'aws-cdk-lib';
-import { CertificateStack } from './certificate.stack.js';
+import { CertificateStack } from './certificate.js';
 
-import {appName, domainName, stage, subdomain} from './config.js';
+import {appName, domainName, subdomain} from './config.js';
 import { RestApiStack } from './rest-api.js';
 import {FrontendStack} from './frontend.js';
 
 const app = new App();
 
-const certStack = new CertificateStack(app, `${appName}-certificate-${stage}`, {
-    stage,
+const certStack = new CertificateStack(app, `${appName}-certificate-`, {
     env: {
         account: process.env.CDK_DEFAULT_ACCOUNT,
         region: 'us-east-1'
@@ -19,20 +18,18 @@ const certStack = new CertificateStack(app, `${appName}-certificate-${stage}`, {
     subdomain,
 });
 
-new RestApiStack(app, `${appName}-rest-api-${stage}`, {
+new RestApiStack(app, `${appName}-rest-api`, {
     env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
     crossRegionReferences: true,
-    stage,
     cert: certStack.restApiCert,
     domainName,
     subdomain,
 });
 
-new FrontendStack(app, `${appName}-frontend-${stage}`, {
+new FrontendStack(app, `${appName}-frontend`, {
     env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
     crossRegionReferences: true,
     domainName,
     subdomain,
-    stage,
     cert: certStack.frontendCert
 });
